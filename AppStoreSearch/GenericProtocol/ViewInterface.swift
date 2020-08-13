@@ -16,3 +16,7 @@ protocol ViewInterface {
     func getNavigationController() -> UINavigationController?
     func getViewController() -> UIViewController?
 }
+
+protocol SearchMainViewInterface: ViewInterface {
+    
+}

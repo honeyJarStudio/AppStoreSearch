@@ -15,10 +15,15 @@ class SuperWireframe {
     private let interactor: InteractorInput
     private let presenter: InteractorOutput
     
-    init(view: ViewInterface, interactor: InteractorInput, presenter: InteractorOutput) {
+    init<T: SuperViewController, U: SuperInteractor, V: SuperPresenter>(view: T, interactor: U, presenter: V) {
         self.viewController = view
         self.interactor = interactor
         self.presenter = presenter
+        view.setPresenter(presenter: presenter)
+        interactor.setPresenter(presenter: presenter)
+        presenter.setInteractor(interactor: interactor)
+        presenter.setView(view: view)
+        presenter.setWireframe(wireframe: self)
     }
     
     func present(this viewController: SuperViewController, animated: Bool, completion: (() -> Void)?) {

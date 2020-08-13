@@ -10,7 +10,7 @@ import Foundation
 
 class SuperInteractor: InteractorInput {
     
-    private var presenter: InteractorOutput
+    private var presenter: InteractorOutput?
     
     func setPresenter(presenter: InteractorOutput) {
         self.presenter = presenter
