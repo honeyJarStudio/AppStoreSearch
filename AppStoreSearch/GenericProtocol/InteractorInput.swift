@@ -9,5 +9,13 @@
 import Foundation
 
 protocol InteractorInput {
-    func setPresenter(presenter: InteractorOutput)
+    func setPresenter<T: InteractorOutput>(_ presenter: T)
+}
+
+protocol GatewayInteractorInput: InteractorInput {
+    
+}
+
+protocol SearchMainInteractorInput: InteractorInput {
+    func requestSearchResult(with keyword: String)
 }

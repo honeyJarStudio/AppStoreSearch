@@ -9,24 +9,23 @@
 import Foundation
 import UIKit
 
-class SuperWireframe {
+class SuperWireframe<V: ViewInterface, I: InteractorInput, P: InteractorOutput & EventHandler> {
     
-    private let viewController: ViewInterface
-    private let interactor: InteractorInput
-    private let presenter: InteractorOutput
+    private let viewController: V
+    private let interactor: I
+    private let presenter: P
     
-    init<T: SuperViewController, U: SuperInteractor, V: SuperPresenter>(view: T, interactor: U, presenter: V) {
+    init(view: V, interactor: I, presenter: P) {
         self.viewController = view
         self.interactor = interactor
         self.presenter = presenter
-        view.setPresenter(presenter: presenter)
-        interactor.setPresenter(presenter: presenter)
-        presenter.setInteractor(interactor: interactor)
+        view.setEventHandler(presenter)
+        interactor.setPresenter(presenter)
+        presenter.setInteractor(interactor)
         presenter.setView(view: view)
-        presenter.setWireframe(wireframe: self)
     }
     
-    func present(this viewController: SuperViewController, animated: Bool, completion: (() -> Void)?) {
+    func present(this viewController: SuperViewController<P>, animated: Bool, completion: (() -> Void)?) {
         guard let vc = self.viewController.getViewController() else {
             self.noViewControllerError()
             return
@@ -34,7 +33,7 @@ class SuperWireframe {
         viewController.presentSelf(from: vc, animated: animated, completion: completion)
     }
     
-    func push(this viewController: SuperViewController, from navigationController: UINavigationController?, animated: Bool) {
+    func push(this viewController: SuperViewController<P>, from navigationController: UINavigationController?, animated: Bool) {
         let navigation: UINavigationController? = navigationController != nil ? navigationController : self.viewController.getNavigationController()
         guard let nav = navigation else {
             self.noNavigationError()
@@ -43,7 +42,7 @@ class SuperWireframe {
         self.viewController.pushSelf(from: nav, animated: animated)
     }
     
-    func push(this viewController: SuperViewController, animated: Bool) {
+    func push(this viewController: SuperViewController<P>, animated: Bool) {
         self.push(this: viewController, from: self.viewController.getNavigationController(), animated: animated)
     }
     

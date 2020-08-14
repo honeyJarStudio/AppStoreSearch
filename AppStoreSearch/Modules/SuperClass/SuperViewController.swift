@@ -9,12 +9,12 @@
 import Foundation
 import UIKit
 
-class SuperViewController: UIViewController, ViewInterface {
+class SuperViewController<E: EventHandler>: UIViewController, ViewInterface {
     
-    private var eventHandler: SuperPresenter?
+    private var eventHandler: E?
     
-    func setPresenter(presenter: SuperPresenter) {
-        self.eventHandler = presenter
+    func setEventHandler<T: EventHandler>(_ handler: T) {
+        self.eventHandler = handler as? E
     }
     
     func presentSelf(from viewController: UIViewController, animated: Bool, completion: (() -> Void)?) {
@@ -31,5 +31,9 @@ class SuperViewController: UIViewController, ViewInterface {
     
     func getViewController() -> UIViewController? {
         return self
+    }
+    
+    func getEventHandler<T: EventHandler>(type: T.Type) -> T? {
+        return self.eventHandler as? T
     }
 }

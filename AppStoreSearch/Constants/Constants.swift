@@ -9,12 +9,9 @@
 import Foundation
 
 class Constants {
+    
     static func bundleId() -> String {
         guard let bundleID = Bundle.main.bundleIdentifier else { return "com.ryan.AppStoreSearch" }
         return bundleID
-    }
-    
-    static func searchKey() -> String {
-        return "term"
     }
 }

@@ -8,6 +8,6 @@
 
 import Foundation
 
-class MainWireframe: SuperWireframe {
+class GatewayWireframe: SuperWireframe<GatewayViewController, GatewayInteractor, GatewayPresenter> {
     
 }

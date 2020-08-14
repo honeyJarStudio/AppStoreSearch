@@ -16,7 +16,7 @@ class ParameterBuilder {
     //MARK: Functions
     func append(key: String, value: Any) -> ParameterBuilder {
         let param = Parameter()
-        param.set(key: key, value: value)
+        _ = param.set(key: key, value: value)
         self.parameters.append(param)
         return self
     }

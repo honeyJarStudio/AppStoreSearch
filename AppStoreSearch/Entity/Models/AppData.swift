@@ -8,12 +8,12 @@
 
 import Foundation
 
-struct AppSearchResult: BaseObject {
+class AppSearchResult: BaseObject {
     var resultCount: Int?
     var results: [AppData]?
 }
 
-struct AppData: BaseObject {
+class AppData: BaseObject {
     var artistViewUrl: String?
     var artworkUrl60: String?
     var artworkUrl100: String?

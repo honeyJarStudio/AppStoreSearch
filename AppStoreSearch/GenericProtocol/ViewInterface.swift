@@ -10,13 +10,17 @@ import Foundation
 import UIKit
 
 protocol ViewInterface {
-    func setPresenter(presenter: SuperPresenter)
+    func setEventHandler<T: EventHandler>(_ handler: T)
     func presentSelf(from viewController: UIViewController, animated: Bool, completion: (() -> Void)?)
     func pushSelf(from navigationController: UINavigationController, animated: Bool)
     func getNavigationController() -> UINavigationController?
     func getViewController() -> UIViewController?
 }
 
-protocol SearchMainViewInterface: ViewInterface {
+protocol GatewayViewInterface: ViewInterface {
     
+}
+
+protocol SearchMainViewInterface: ViewInterface {
+    func findDefaultData()
 }

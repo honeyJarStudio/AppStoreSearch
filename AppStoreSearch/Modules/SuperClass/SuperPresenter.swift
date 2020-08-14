@@ -12,17 +12,24 @@ class SuperPresenter: EventHandler, InteractorOutput {
     
     private var view: ViewInterface?
     private var interactor: InteractorInput?
-    private var wireframe: SuperWireframe?
     
-    func setView(view: ViewInterface) {
+    func setView<T: ViewInterface>(view: T) {
         self.view = view
     }
     
-    func setInteractor(interactor: InteractorInput) {
+    func setInteractor<T: InteractorInput>(_ interactor: T) {
         self.interactor = interactor
     }
     
-    func setWireframe(wireframe: SuperWireframe) {
-        self.wireframe = wireframe
+    func getInteractor<T: InteractorInput>(type: T.Type) -> T? {
+        return self.interactor as? T
+    }
+    
+    func getView<T: ViewInterface>(type: T.Type) -> T? {
+        return self.view as? T
+    }
+    
+    func setFundamentals() {
+        Logger.errorLog("you must override setFundamentals() in your presenter.")
     }
 }

@@ -12,7 +12,11 @@ class SuperInteractor: InteractorInput {
     
     private var presenter: InteractorOutput?
     
-    func setPresenter(presenter: InteractorOutput) {
+    func setPresenter<T: InteractorOutput>(_ presenter: T) {
         self.presenter = presenter
+    }
+    
+    func getPresenter<T: InteractorOutput>(_ type: T.Type) -> T? {
+        return self.presenter as? T
     }
 }

@@ -9,5 +9,15 @@
 import Foundation
 
 protocol EventHandler {
-    func setView(view: ViewInterface)
+    func setView<T: ViewInterface>(view: T)
+    func setFundamentals()
+}
+
+protocol GatewayEventHandler: EventHandler {
+
+}
+
+protocol SearchMainEventHandler: EventHandler {
+    func findRecentKeywords()
+    func findAppListWith(_ keyword: String)
 }

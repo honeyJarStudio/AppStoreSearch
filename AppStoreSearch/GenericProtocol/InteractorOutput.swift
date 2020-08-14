@@ -9,5 +9,13 @@
 import Foundation
 
 protocol InteractorOutput {
-    func setInteractor(interactor: InteractorInput)
+    func setInteractor<T: InteractorInput>(_ interactor: T)
+}
+
+protocol GatewayInteractorOutput: InteractorOutput {
+    
+}
+
+protocol SearchMainInteractorOutput: InteractorOutput {
+    func searchResultReceived(_ result: AppSearchResult)
 }

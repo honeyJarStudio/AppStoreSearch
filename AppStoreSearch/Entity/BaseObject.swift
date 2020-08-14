@@ -13,8 +13,16 @@ protocol BaseObject: Codable {
 }
 
 extension BaseObject {
+    
     static func map<T: BaseObject>(json: String) -> T? {
-        if let data = json.data(using: .utf8), let result = try? JSONDecoder().decode(T.self, from: data) {
+        if let data = json.data(using: .utf8) {
+            return self.map(data: data)
+        }
+        return nil
+    }
+    
+    static func map<T: BaseObject>(data: Data) -> T? {
+        if let result = try? GlobalJSONDecoder.getDecoder().decode(T.self, from: data) {
             return result as T
         }
         return nil
