@@ -17,7 +17,7 @@ class ResponseReceiver<T: BaseObject> {
         self.receiver = receiver
     }
     
-    func get() -> CompletionHandler? {
+    func getHandler() -> CompletionHandler? {
         return self.receiver
     }
 }

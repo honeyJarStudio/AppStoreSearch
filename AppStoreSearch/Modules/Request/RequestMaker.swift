@@ -50,7 +50,9 @@ class RequestMaker {
                     if let message = errorCreated?.localizedDescription {
                         Logger.errorLog(message, prefix: asString)
                     }
-                    handler?.get()?(.failure, nil, errorCreated)
+                    DispatchQueue.main.async {
+                        handler?.getHandler()?(.failure, nil, errorCreated)
+                    }
                     return
                 }
                 // success result handling
@@ -58,19 +60,25 @@ class RequestMaker {
                     // data does not exist
                     let message = "response success, but result data does not exist."
                     Logger.errorLog(message, prefix: asString)
-                    handler?.get()?(.failure, nil, nil)
+                    DispatchQueue.main.async {
+                        handler?.getHandler()?(.failure, nil, nil)
+                    }
                     return
                 }
                 // parsing
                 guard let parsed = try? GlobalJSONDecoder.getDecoder().decode(T.self, from: unwrapped) else {
                     // data exist
                     Logger.errorLog("response success, but data parsing have failed", prefix: asString)
-                    handler?.get()?(.failure, nil, nil)
+                    DispatchQueue.main.async {
+                        handler?.getHandler()?(.failure, nil, nil)
+                    }
                     return
                 }
                 // final result: success
                 Logger.infoLog("request successfully ended", prefix: asString)
-                handler?.get()?(.success, parsed, nil)
+                DispatchQueue.main.async {
+                    handler?.getHandler()?(.success, parsed, nil)
+                }
             }
         ).resume() //finally, start network request
     }

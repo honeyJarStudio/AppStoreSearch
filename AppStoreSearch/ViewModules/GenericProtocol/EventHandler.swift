@@ -21,3 +21,7 @@ protocol SearchMainEventHandler: EventHandler {
     func findRecentKeywords()
     func findAppListWith(_ keyword: String)
 }
+
+protocol AppDetailEventHandler: EventHandler {
+    func setLayoutRequirements()
+}

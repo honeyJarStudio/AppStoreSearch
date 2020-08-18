@@ -19,3 +19,7 @@ protocol GatewayInteractorOutput: InteractorOutput {
 protocol SearchMainInteractorOutput: InteractorOutput {
     func searchResultReceived(_ result: AppSearchResult)
 }
+
+protocol AppDetailInteractorOutput: InteractorOutput {
+    
+}

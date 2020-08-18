@@ -19,3 +19,7 @@ protocol GatewayInteractorInput: InteractorInput {
 protocol SearchMainInteractorInput: InteractorInput {
     func requestSearchResult(with keyword: String)
 }
+
+protocol AppDetailInteractorInput: InteractorInput {
+    
+}

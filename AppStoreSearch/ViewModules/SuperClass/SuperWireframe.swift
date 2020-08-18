@@ -67,7 +67,26 @@ class SuperWireframe<V: ViewInterface, I: InteractorInput, P: InteractorOutput &
         }
         let wireframe = SearchMainWireframe(view: vc, interactor: interactor, presenter: presenter)
         presenter.wireframe = wireframe
-        vc.modalPresentationStyle = .fullScreen
-        self.present(this: vc, animated: true, completion: nil)
+        guard let nav = UIStoryboard(name: StoryboardName.main.rawValue, bundle: nil).instantiateViewController(withIdentifier: VCIdentifier.rootNavigtaion.rawValue) as? RootNavigationController else {
+            vc.modalPresentationStyle = .fullScreen
+            self.present(this: vc, animated: true, completion: nil)
+            return
+        }
+        nav.modalPresentationStyle = .fullScreen
+        nav.viewControllers = [vc]
+        self.present(this: nav, animated: true, completion: nil)
+    }
+    
+    func pushToAppDetail(app: AppData) {
+        let presenter = AppDetailPresenter()
+        let interactor = AppDetailInteractor()
+        guard let vc: AppDetailViewController = UIStoryboard(name: StoryboardName.main.rawValue, bundle: nil).instantiateViewController(withIdentifier: VCIdentifier.appDetail.rawValue) as? AppDetailViewController else {
+            Logger.errorLog("error within instantiate viewcontroller process", prefix: "SuperWireframe: AppDetailViewController")
+            return
+        }
+        presenter.appData = app
+        let wireframe = AppDetailWireframe(view: vc, interactor: interactor, presenter: presenter)
+        presenter.wireframe = wireframe
+        self.push(this: vc, animated: true)
     }
 }

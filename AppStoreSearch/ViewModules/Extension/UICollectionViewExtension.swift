@@ -11,8 +11,6 @@ import UIKit
 
 extension UICollectionView {
     func refreshData() {
-        DispatchQueue.main.async {
-            self.reloadData()
-        }
+        self.reloadData()
     }
 }

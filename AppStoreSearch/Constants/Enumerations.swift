@@ -59,5 +59,7 @@ enum StoryboardName: String {
 
 enum VCIdentifier: String {
     case gateway = "GatewayViewController"
+    case rootNavigtaion = "RootNavigationController"
     case searchMain = "SearchMainViewController"
+    case appDetail = "AppDetailViewController"
 }

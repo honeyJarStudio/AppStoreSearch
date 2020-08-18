@@ -20,30 +20,48 @@ extension UIImageView {
     }
     
     func setImage(from url: URL?, withPlaceholder placeholder: UIImage? = nil) {
-        let altImage = UIImage(systemName: "icloud")?.withTintColor(.secondaryLabel, renderingMode: .alwaysTemplate)
-        let failImage = UIImage(systemName: "icloud.slash")?.withTintColor(.secondaryLabel, renderingMode: .alwaysTemplate)
+        let altImage = UIImage(systemName: "icloud.and.arrow.down")?.withTintColor(.secondaryLabel, renderingMode: .automatic)
+        let failImage = UIImage(systemName: "exclamationmark.icloud")?.withTintColor(.secondaryLabel, renderingMode: .automatic)
         self.image = (placeholder == nil ? altImage : placeholder)
         guard let finalUrl = url else {
             self.image = failImage
             return
         }
-        URLSession.shared.dataTask(with: finalUrl)
-        { data, _ , error in
-            if let fail = error {
-                // error
-                Logger.errorLog(fail.localizedDescription, prefix: "Image Loading, URL: \(finalUrl.absoluteString)")
-                // replace image with failure image
-                DispatchQueue.main.async {
-                    self.image = failImage
+        let task = URLSession.shared.dataTask(with: finalUrl)
+            { data, _ , error in
+                if let fail = error, data == nil {
+                    // error
+                    Logger.errorLog(fail.localizedDescription, prefix: "Image Loading, URL: \(finalUrl.absoluteString)")
+                    // replace image with failure image
+                    DispatchQueue.main.async
+                        {
+                            self.setImageWithAimation(image: failImage)
+                    }
+                    return
                 }
-                return
-            }
-            if let extracted = data {
-                let image = UIImage(data: extracted)
-                DispatchQueue.main.async {
-                    self.image = image
+                if let extracted = data {
+                    let image = UIImage(data: extracted)
+                    DispatchQueue.main.async
+                        {
+                            self.setImageWithAimation(image: image)
+                    }
                 }
             }
-        }.resume()
+        GlobalImageRequest.addQueue(url: finalUrl.absoluteString, image: self, task: task)
+        task.resume()
+    }
+    
+    private func setImageWithAimation(image: UIImage?) {
+        self.layer.opacity = 0.0
+        self.image = image
+        UIView.animate(withDuration: 0.4, animations:
+            {
+                self.layer.opacity = 1.0
+        }
+        )
+    }
+    
+    func cancelRequest() {
+        GlobalImageRequest.removeQueue(image: self)
     }
 }

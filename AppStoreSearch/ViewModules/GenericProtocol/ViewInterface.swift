@@ -21,6 +21,14 @@ protocol GatewayViewInterface: ViewInterface {
 
 protocol SearchMainViewInterface: ViewInterface {
     func setCollectionViewDelegate(_ delegate: SearchResultCollectionDelegate)
+    func setKeywordDelegate(_ delegate: KeywordCollectionViewDelegate)
     func findDefaultData()
     func searchResultReceived()
+    func keywordReceived(keyword: String)
+    func openUrl(url: URL)
+}
+
+protocol AppDetailViewInterface: ViewInterface {
+    func initializeViewsFromAppData(app: AppData)
+    func setScreenshots(images: [UIImageView])
 }

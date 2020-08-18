@@ -34,7 +34,7 @@ class Logger {
     
     static func infoLog(_ message: String, prefix: String?) {
         let converted = self.getAttachment(message: message, prefix: prefix)
-        os_log(.info, log: Logger.getInstance().catInfo(), "[INFO]: %@", converted)
+        os_log(.info, log: Logger.getInstance().catInfo(), "%@", converted)
     }
     
     static func errorLog(_ message: String) {
@@ -43,7 +43,7 @@ class Logger {
     
     static func errorLog(_ message: String, prefix: String?) {
         let converted: String = self.getAttachment(message: message, prefix: prefix)
-        os_log(.error, log: Logger.getInstance().catError(), "[ERROR]: %@", converted)
+        os_log(.error, log: Logger.getInstance().catError(), "%@", converted)
     }
     
     static func debugLog(_ message: String) {
@@ -53,7 +53,7 @@ class Logger {
     static func debugLog(_ message: String, prefix: String?) {
         let converted: String = self.getAttachment(message: message, prefix: prefix)
         if self.debug {
-            os_log(.debug, log: Logger.getInstance().catDebug(), "[DEBUG]: %@", converted)
+            os_log(.debug, log: Logger.getInstance().catDebug(), "%@", converted)
         }
     }
     
