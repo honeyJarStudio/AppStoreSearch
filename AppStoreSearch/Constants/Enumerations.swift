@@ -51,3 +51,13 @@ enum ResponseStatus: String {
     case success
     case failure
 }
+
+enum StoryboardName: String {
+    case launchScreen = "LaunchScreen"
+    case main = "Main"
+}
+
+enum VCIdentifier: String {
+    case gateway = "GatewayViewController"
+    case searchMain = "SearchMainViewController"
+}
